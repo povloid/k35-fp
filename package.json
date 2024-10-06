@@ -1,6 +1,6 @@
 {
   "name": "@k35/fp",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Functional Programming Tools",
   "author": "Pavel Kopychenko",
   "license": "APACHE",
@@ -11,7 +11,7 @@
     "dist/fp.js",
     "dist/fp.js.map"
   ],
-  "devDependencies": {
+  "dependencies": {
     "typescript": "^5.6.2",
     "@types/node": "^16.7.13"
   },
