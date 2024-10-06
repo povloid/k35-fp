@@ -1,9 +1,10 @@
 {
   "name": "@k35/fp",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Functional Programming Tools",
   "author": "Pavel Kopychenko",
   "license": "APACHE",
+  "main": "dist/fp.js",
   "types": "dist/fp.d.ts",
   "files": [
     "src/fp.ts",
