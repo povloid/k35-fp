@@ -1,22 +1,28 @@
 {
-  "name": "@k35/fp",
-  "version": "1.0.3",
-  "description": "Functional Programming Tools",
-  "author": "Pavel Kopychenko",
-  "license": "APACHE",
-  "main": "dist/fp.js",
-  "types": "dist/fp.d.ts",
-  "files": [
-    "src/fp.ts",
-    "dist/fp.d.ts",
-    "dist/fp.js",
-    "dist/fp.js.map"
-  ],
-  "dependencies": {
-    "typescript": "^5.6.2",
-    "@types/node": "^16.7.13"
-  },
-  "scripts": {
-    "build": "yarn tsc"
-  }
+    "name": "@k35/fp",
+    "version": "1.0.3",
+    "description": "Functional Programming Tools",
+    "author": "Pavel Kopychenko",
+    "license": "APACHE",
+    "main": "dist/fp.js",
+    "types": "dist/fp.d.ts",
+    "files": [
+        "src/fp.ts",
+        "dist/fp.d.ts",
+        "dist/fp.js",
+        "dist/fp.js.map"
+    ],
+    "dependencies": {
+        "@types/node": "^16.7.13",
+        "typescript": "^5.6.2"
+    },
+    "scripts": {
+        "build": "yarn tsc",
+        "test": "yarn jest"
+    },
+    "devDependencies": {
+        "@types/jest": "^29.5.14",
+        "jest": "^29.7.0",
+        "ts-jest": "^29.3.1"
+    }
 }

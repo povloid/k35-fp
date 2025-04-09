@@ -1,3 +1,12 @@
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
 export var partial1 = function (fn, a1) { return function (a2) { return fn(a1, a2); }; };
 export var partial2 = function (fn, a1, a2) { return function (a3) { return fn(a1, a2, a3); }; };
 export var partial3 = function (fn, a1, a2, a3) { return function (a4) { return fn(a1, a2, a3, a4); }; };
@@ -49,10 +58,47 @@ export var curry7Right = function (fn) {
     return function (a7) { return function (a6) { return function (a5) { return function (a4) { return function (a3) { return function (a2) { return function (a1) { return fn(a1, a2, a3, a4, a5, a6, a7); }; }; }; }; }; }; };
 };
 export var compose2 = function (f1, f2) { return function (value) { return f2(f1(value)); }; };
+export function curryAsTailAndFirst(fn) {
+    if (fn.length < 2)
+        return fn;
+    else
+        return function () {
+            var rest = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                rest[_i] = arguments[_i];
+            }
+            return function (arg1) { return fn.apply(void 0, __spreadArray([arg1], rest, false)); };
+        };
+}
+export function curry(fn) {
+    if (fn.length < 2)
+        return fn;
+    return function curried() {
+        var args = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            args[_i] = arguments[_i];
+        }
+        if (args.length >= fn.length) {
+            return fn.apply(void 0, args);
+        }
+        else {
+            return function () {
+                var args2 = [];
+                for (var _i = 0; _i < arguments.length; _i++) {
+                    args2[_i] = arguments[_i];
+                }
+                return curried.apply(void 0, __spreadArray(__spreadArray([], args, false), args2, false));
+            };
+        }
+    };
+}
 var Functor = (function () {
     function Functor(transform) {
         this.transform = transform;
     }
+    Functor.of = function (transform) {
+        return new Functor(transform);
+    };
     Functor.prototype.map = function (transform) {
         return new Functor(compose2(this.transform, transform));
     };
@@ -63,12 +109,14 @@ var Thread = (function () {
     function Thread(value) {
         this.value = value;
     }
-    Thread.from = function (value) {
+    Thread.of = function (value) {
         return new Thread(value);
     };
-    Thread.prototype.apply = function (transform) {
-        var result = transform(this.value);
-        return new Thread(result);
+    Thread.prototype.map = function (transform) {
+        return new Thread(transform(this.value));
+    };
+    Thread.prototype.out = function () {
+        return this.value;
     };
     return Thread;
 }());

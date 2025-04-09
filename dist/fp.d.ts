@@ -25,14 +25,37 @@ export declare const curry5Right: <A1, A2, A3, A4, A5, R>(fn: (a1: A1, a2: A2, a
 export declare const curry6Right: <A1, A2, A3, A4, A5, A6, R>(fn: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6) => R) => (a6: A6) => (a5: A5) => (a4: A4) => (a3: A3) => (a2: A2) => (a1: A1) => R;
 export declare const curry7Right: <A1, A2, A3, A4, A5, A6, A7, R>(fn: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7) => R) => (a7: A7) => (a6: A6) => (a5: A5) => (a4: A4) => (a3: A3) => (a2: A2) => (a1: A1) => R;
 export declare const compose2: <A, B, C>(f1: (value: A) => B, f2: (value: B) => C) => (value: A) => C;
+export declare function curryAsTailAndFirst<R>(fn: () => R): () => R;
+export declare function curryAsTailAndFirst<T1, R>(fn: (arg1: T1) => R): (arg1: T1) => R;
+export declare function curryAsTailAndFirst<T1, T2, R>(fn: (arg1: T1, arg2: T2) => R): (arg2: T2) => (arg1: T1) => R;
+export declare function curryAsTailAndFirst<T1, T2, T3, R>(fn: (arg1: T1, arg2: T2, arg3: T3) => R): (arg2: T2, arg3: T3) => (arg1: T1) => R;
+export declare function curryAsTailAndFirst<T1, T2, T3, T4, R>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => R): (arg2: T2, arg3: T3, arg4: T4) => (arg1: T1) => R;
+export declare function curryAsTailAndFirst<T1, T2, T3, T4, T5, R>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => R): (arg2: T2, arg3: T3, arg4: T4, arg5: T5) => (arg1: T1) => R;
+export declare function curryAsTailAndFirst<T1, T2, T3, T4, T5, T6, R>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6) => R): (arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6) => (arg1: T1) => R;
+export type CurryFunction1<T1, R> = (arg1: T1) => R;
+export type CurryFunction2<T1, T2, R> = (arg1: T1) => CurryFunction1<T2, R>;
+export type CurryFunction3<T1, T2, T3, R> = (arg1: T1) => CurryFunction2<T2, T3, R>;
+export type CurryFunction4<T1, T2, T3, T4, R> = (arg1: T1) => CurryFunction3<T2, T3, T4, R>;
+export type CurryFunction5<T1, T2, T3, T4, T5, R> = (arg1: T1) => CurryFunction4<T2, T3, T4, T5, R>;
+export type CurryFunction6<T1, T2, T3, T4, T5, T6, R> = (arg1: T1) => CurryFunction5<T2, T3, T4, T5, T6, R>;
+export declare function curry<R>(fn: () => R): () => R;
+export declare function curry<T1, R>(fn: (arg1: T1) => R): (arg1: T1) => R;
+export declare function curry<T1, T2, R>(fn: (arg1: T1, arg2: T2) => R): CurryFunction2<T1, T2, R>;
+export declare function curry<T1, T2, T3, R>(fn: (arg1: T1, arg2: T2, arg3: T3) => R): CurryFunction3<T1, T2, T3, R>;
+export declare function curry<T1, T2, T3, T4, R>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => R): CurryFunction4<T1, T2, T3, T4, R>;
+export declare function curry<T1, T2, T3, T4, T5, R>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => R): CurryFunction5<T1, T2, T3, T4, T5, R>;
+export declare function curry<T1, T2, T3, T4, T5, T6, R>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6) => R): CurryFunction6<T1, T2, T3, T4, T5, T6, R>;
 export declare class Functor<A, B> {
     readonly transform: (value: A) => B;
-    constructor(transform: (value: A) => B);
+    private constructor();
+    static of<A, B>(transform: (value: A) => B): Functor<A, B>;
     map<C>(transform: (value: B) => C): Functor<A, C>;
 }
 export declare class Thread<A> {
-    readonly value: A;
-    static from<A>(value: A): Thread<A>;
+    private readonly value;
+    static of<A>(value: A): Thread<A>;
     private constructor();
-    apply<B>(transform: (value: A) => B): Thread<B>;
+    map<B>(transform: (value: A) => B): Thread<B>;
+    out(): A;
 }
+export type Pipe<A> = Thread<A>;
