@@ -57,8 +57,21 @@ export var curry6Right = function (fn) {
 export var curry7Right = function (fn) {
     return function (a7) { return function (a6) { return function (a5) { return function (a4) { return function (a3) { return function (a2) { return function (a1) { return fn(a1, a2, a3, a4, a5, a6, a7); }; }; }; }; }; }; };
 };
-export var compose2 = function (f1, f2) { return function (value) { return f2(f1(value)); }; };
-export function curryAsTailAndFirst(fn) {
+export function compose() {
+    var functions = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        functions[_i] = arguments[_i];
+    }
+    return function (x) { return functions.reduceRight(function (x, f) { return f(x); }, x); };
+}
+export function composel() {
+    var functions = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        functions[_i] = arguments[_i];
+    }
+    return function (x) { return functions.reduce(function (x, f) { return f(x); }, x); };
+}
+export function asUpdate(fn) {
     if (fn.length < 2)
         return fn;
     else
@@ -92,6 +105,7 @@ export function curry(fn) {
         }
     };
 }
+export var compose2 = function (f1, f2) { return function (value) { return f2(f1(value)); }; };
 var Functor = (function () {
     function Functor(transform) {
         this.transform = transform;

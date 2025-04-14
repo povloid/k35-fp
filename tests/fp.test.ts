@@ -1,19 +1,92 @@
-import { curry, curryAsTailAndFirst, Functor, Thread } from "../src/fp";
+import { asUpdate, compose, composel, curry, Functor, Thread } from "../src/fp";
 
-describe('Тестирование curryAsTailAndFirst', () => {
+describe('Тестирование compose', () => {
 
-    test('Тестирование функции без агрументов', () => {
+    test('Тестирование функции с одним аргументом', () => {
 
-        const f1 = () => 55
-        const f1C = curryAsTailAndFirst(f1)
+        const inc = (x: number) => x + 1
 
-        expect(f1()).toBe(f1C());
+        const comp = compose(inc)
+
+        const a = 5
+
+        expect(comp(a)).toBe(6);
     });
+
+    test('Тестирование функции с двумя аргументами', () => {
+
+        const inc = (x: number) => x + 1
+        const dec = (x: number) => x - 1
+
+        const comp = compose(inc, dec)
+
+        const a = 5
+
+        expect(comp(a)).toBe(5);
+    });
+
+
+    test('Тестирование функции с тремя агрументами', () => {
+
+        const inc = (x: number) => x + 1
+        const dec = (x: number) => x - 1
+        const str = (x: number) => x + ""
+
+        const comp = compose(str, inc, dec)
+
+        const a = 5
+
+        expect(comp(a)).toBe("5");
+    });
+});
+
+describe('Тестирование composel', () => {
+
+    test('Тестирование функции с одним аргументом', () => {
+
+        const inc = (x: number) => x + 1
+
+        const comp = composel(inc)
+
+        const a = 5
+
+        expect(comp(a)).toBe(6);
+    });
+
+    test('Тестирование функции с двумя аргументами', () => {
+
+        const inc = (x: number) => x + 1
+        const dec = (x: number) => x - 1
+
+        const comp = composel(inc, dec)
+
+        const a = 5
+
+        expect(comp(a)).toBe(5);
+    });
+
+
+    test('Тестирование функции с тремя агрументами', () => {
+
+        const inc = (x: number) => x + 1
+        const dec = (x: number) => x - 1
+        const str = (x: number) => x + ""
+
+        const comp = composel(inc, dec, str)
+
+        const a = 5
+
+        expect(comp(a)).toBe("5");
+    });
+});
+
+
+describe('Тестирование asUpdate', () => {
 
     test('Тестирование функции с одним аргументом', () => {
 
         const f1 = (a: number): string => a * a + " sec"
-        const f1C = curryAsTailAndFirst(f1)
+        const f1C = asUpdate(f1)
 
         const a = 5
         expect(f1(a)).toBe(f1C(a));
@@ -22,7 +95,7 @@ describe('Тестирование curryAsTailAndFirst', () => {
     test('Тестирование функции с двумя аргументами', () => {
 
         const f1 = (a: number, b: string) => a * a + b
-        const f1C = curryAsTailAndFirst(f1)
+        const f1C = asUpdate(f1)
 
         const a = 5, b = " mm"
         expect(f1(a, b)).toBe(f1C(b)(a));
@@ -32,7 +105,7 @@ describe('Тестирование curryAsTailAndFirst', () => {
     test('Тестирование функции с тремя агрументами', () => {
 
         const f1 = (a: number, b: string, c: number): string => a * a + b + c
-        const f1C = curryAsTailAndFirst(f1)
+        const f1C = asUpdate(f1)
 
         const a = 1, b = "-", c = 123
         expect(f1(a, b, c)).toBe(f1C(b, c)(a));
@@ -42,14 +115,6 @@ describe('Тестирование curryAsTailAndFirst', () => {
 
 describe('Тестирование curry', () => {
 
-    test('Тестирование функции без агрументов', () => {
-
-        const f1 = () => 77
-
-        const f1C = curry(f1)
-
-        expect(f1()).toBe(f1C());
-    });
 
     test('Тестирование функции с одним агрументом', () => {
 
