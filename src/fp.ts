@@ -210,9 +210,9 @@ export class Functor<A, B> {
  * 
  * const inc = (x: number) => x + 1
  *
- * const o = Thread.from(10).apply(inc).value()
+ * const o = Thread.of(10).apply(inc).value()
  * 
- * const r = Thread.from([1, 2, 3])
+ * const r = Thread.of([1, 2, 3])
  *	.apply(list => list.map(inc))
  *	.apply(list => list.map(inc))
  *	.apply(list => list.reduce((acc, x) => acc + x, 10))
