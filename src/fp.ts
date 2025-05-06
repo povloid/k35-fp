@@ -242,3 +242,33 @@ export class Thread<A> {
  * То же самое что и Thread
  */
 export type Pipe<A,> = Thread<A>
+
+/**
+ * Взять значение
+ * 
+ * @param v 
+ * @returns 
+ */
+export const value = <T>(v: T) => v
+
+/**
+ * Установить как значение v вместо _s
+ * @param _s 
+ * @param v 
+ * @returns значение v
+ */
+export const set = <V>(v: V) => () => v
+
+/**
+ * Установить как null
+ *  
+ * @returns null
+ */
+export const setNull = () => null
+
+/**
+ * Установить как undefined
+ * 
+ * @returns undefined
+ */
+export const setUndefined = () => undefined

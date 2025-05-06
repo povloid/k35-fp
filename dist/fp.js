@@ -135,4 +135,8 @@ var Thread = (function () {
     return Thread;
 }());
 export { Thread };
+export var value = function (v) { return v; };
+export var set = function (v) { return function () { return v; }; };
+export var setNull = function () { return null; };
+export var setUndefined = function () { return undefined; };
 //# sourceMappingURL=fp.js.map
