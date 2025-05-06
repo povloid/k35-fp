@@ -69,3 +69,7 @@ export declare class Thread<A> {
     out(): A;
 }
 export type Pipe<A> = Thread<A>;
+export declare const value: <T>(v: T) => T;
+export declare const set: <V>(v: V) => () => V;
+export declare const setNull: () => null;
+export declare const setUndefined: () => undefined;
